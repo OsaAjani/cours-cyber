@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Login — Demo HPE</title>
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    >
+</head>
+<body>
+    <main class="container">
+        <article>
+            <h1>Connexion — Démo Horizontal Privilege Escalation</h1>
+            
+            
+            <% if (error) { %>
+                <div class="contrast">
+                    <p style="color:#b00020"><%= error %></p>
+                </div>
+            <% } %>
+            
+            
+            <form method="post" action="/login">
+                <label for="username">Nom d'utilisateur</label>
+                <input id="username" name="username" required />
+                
+                
+                <label for="password">Mot de passe</label>
+                <input id="password" name="password" type="password" required />
+                
+                
+                <button type="submit">Se connecter</button>
+            </form>
+            
+            
+            <section>
+                <h3>Comptes demo</h3>
+                <ul>
+                    <li>alice / password (id 123)</li>
+                </ul>
+            </section>
+            
+        </article>
+    </main>
+</body>
+</html>

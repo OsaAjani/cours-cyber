@@ -1,0 +1,75 @@
+
+# Notes about the notation
+
+-   A simple dash (`-`) indicates a notion on the slide.
+    
+-   A digit with a dash (`1 -`, `2 -`, etc.) indicates a main chapter of the presentation.
+    
+-   A digit dot digit with a dash (`4.1 -`, `4.2 -`, etc.) indicates a slide inside that chapter.
+    
+-   A digit dot `X` with a dash (`5.X -`) indicates one or several slides on a subject, depending on needs.
+    
+
+# Slide plan
+
+1 - Intro slide
+
+2 - Presentation of the vulnerability
+
+	-   Name
+	    
+	-   OWASP ranking
+	    
+	-   Short description
+	    
+	-   CIA impact table with vulnerability level
+	    
+
+3 - More detailed presentation of the vulnerability  
+	3.1 - More detailed presentation (family, attack source, part of the system targeted — infra, front-end, back-end, DB, etc.)  
+	3.x - One or multiple example scenarios that exploit this vulnerability
+
+4 - Discovering the vulnerability  
+	4.1 - Where to look for this type of vulnerability (front-end, back-end, inputs, headers, etc.)  
+	4.2 - Warning signs that should prompt investigation  
+	4.3 - How to verify the presence of this type of vulnerability (inspection, fuzzing, proxy)  
+	4.4 - Tools related to exploiting these vulnerabilities (SqlMap, Metasploit, ZAP, Burp)
+
+5 - How to exploit the vulnerability  
+	5.X - The conceptual principles behind exploitation  
+	5.X - A practical case with a demo in a controlled lab
+
+6 - Why the vulnerability appears  
+	6.X - Root causes that lead to the vulnerability  
+	6.X - Which features are often associated with the vulnerability’s appearance; when to be vigilant
+
+7 - How to fix the vulnerability  
+	7.X - General defensive concepts against this type of vulnerability  
+	7.X - Concrete fix for the practical demo case
+
+8 - Practice and experimentation, CTF & F (Capture The Flag & Fix) exercise  
+	8.1 - Presentation of the "CTF" challenge students will solve, including:
+		-   Name
+		    
+		-   Lore and objectives
+		    
+		-   URL / logins / etc. if necessary
+		    
+		-   Expected duration
+	    
+		-   Reminder that once the vulnerability is exploited they must find how to fix it and propose a patch on GitHub  
+
+    8.2 - Demonstration of the exploitation:
+		-   Live demo
+		    
+		-   Short writeup
+		    
+
+9 - Multiple-choice quiz on the concepts covered
+
+10 - Reminder of the main principles
+	-   What the vulnerability consists of
+	    
+	-   When it is likely to appear
+	    
+	-   The best way to protect against it

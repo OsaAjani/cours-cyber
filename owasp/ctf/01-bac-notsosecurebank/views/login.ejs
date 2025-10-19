@@ -1,0 +1,35 @@
+
+<%- include('partials/head', { title: 'Login - SecureBank' }) %>
+
+<%- include('partials/navbar') %>
+
+<main class="container">
+  <%- include('partials/flash') %>
+
+  <div class="method-steps">
+      <h4>🎯 Your Mission:</h4>
+      <p>You're a security researcher evaluating this fintech app. Exploit an IDOR vulnerability to access Bernard's account information and find his account number (the CTF key).</p>
+    </div>
+  
+  <div class="card">
+    <h1>🔒 (NotSo)SecureBank Login</h1>
+    <p><strong>Educational IDOR Vulnerability Demo</strong></p>
+    <p>Welcome to SecureBank's intentionally vulnerable application for learning about Insecure Direct Object References (IDOR).</p>
+    <form method="post" action="/login">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" name="username" placeholder="Your username" required />
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Your password" required />
+      </div>
+      <button type="submit" class="btn-primary">Login</button>
+    </form>
+    
+  </div>
+  
+  
+</main>
+
+<%- include('partials/footer') %>

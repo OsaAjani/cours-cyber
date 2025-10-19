@@ -1,0 +1,18 @@
+<article class="card">
+  <h3><%= title || 'Transactions' %></h3>
+  <% if (transactions.length === 0) { %>
+    <p>No transactions found.</p>
+  <% } else { %>
+    <% transactions.forEach(function(trans){ %>
+      <div class="transaction-item">
+        <div>
+          <strong><%= trans.description %></strong><br />
+          <small><%= trans.date %></small>
+        </div>
+        <div class="<%= trans.amount >= 0.01 ? 'amount-positive' : 'amount-negative' %>">
+          <%= trans.amount >= 0.01 ? '+' : '' %>$<%= Math.abs(trans.amount).toFixed(2) %>
+        </div>
+      </div>
+    <% }) %>
+  <% } %>
+</article>

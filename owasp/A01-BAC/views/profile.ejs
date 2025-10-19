@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Profil <%= profile.username %></title>
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    >
+</head>
+<body>
+    <main class="container">
+        <nav aria-label="breadcrumb">
+            <ol>
+                <li><a href="/">Accueil ></a></li>
+                <li>Profil</li>
+            </ol>
+        </nav>
+        
+        
+        <header>
+            <h1>Profil de <%= profile.fullName %></h1>
+            <p>Vous êtes connecté en tant que : <strong><%= profile.fullName %> #<%= meId %></strong></p>
+        </header>
+        
+        
+        <section>
+            <h2>Informations</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Champ</th>
+                        <th>Valeur</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Identifiant</td>
+                        <td><code><%= profile.id %></code></td>
+                    </tr>
+                    <tr>
+                        <td>Nom d'utilisateur</td>
+                        <td><%= profile.username %></td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td><%= profile.email %></td>
+                    </tr>
+                    <tr>
+                        <td>Préférences</td>
+                        <td><pre style="display:inline"><%= JSON.stringify(profile.prefs, null, 2) %></pre></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+</body>
+</html>

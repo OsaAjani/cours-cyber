@@ -1,0 +1,20 @@
+{
+    "name": "securebank-idor-app",
+    "version": "1.0.0",
+    "description": "SecureBank - Fintech Learning Platform (IDOR demo) with Express, EJS, and async SQLite",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "install-db": "sqlite3 securebank.db < init.sql",
+        "reset-db": "rm -f securebank.db && npm run install-db",
+        "setup": "./install.sh"
+    },
+    "dependencies": {
+        "bcrypt": "^5.1.1",
+        "ejs": "^3.1.10",
+        "express": "^4.19.2",
+        "express-session": "^1.18.1",
+        "sqlite": "^5.1.1",
+        "sqlite3": "^5.1.7"
+    }
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= typeof title !== 'undefined' ? title : 'SecureBank' %></title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <style>
+        :root{--primary-color:#6366f1;--secondary-color:#f8fafc;--success-color:#10b981;--warning-color:#f59e0b;--danger-color:#ef4444;--card-shadow:0 4px 6px -1px rgba(0,0,0,0.1)}
+        body{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh}
+        .container{max-width:1200px;margin:0 auto;padding:1rem}
+        .card{background:#fff;border-radius:12px;box-shadow:var(--card-shadow);padding:2rem;margin-bottom:2rem}
+        .dashboard-header{background:#fff;border-radius:12px;box-shadow:var(--card-shadow);padding:2rem;margin-bottom:2rem;text-align:center}
+        .balance-card{text-align:center}
+        .transaction-item{display:flex;justify-content:space-between;align-items:center;padding:1rem;border-bottom:1px solid #e5e7eb}
+        .transaction-item:last-child{border-bottom:none}
+        .amount-positive{color:var(--success-color);font-weight:bold}
+        .amount-negative{color:var(--danger-color);font-weight:bold}
+        .hidden-field{background-color:#fef3c7;border:2px dashed var(--warning-color);padding:.5rem;border-radius:4px}
+        .vulnerability-hint{background-color:#fee2e2;border:1px solid var(--danger-color);border-radius:8px;padding:1rem;margin:1rem 0}
+        .navbar{background:#fff;box-shadow:var(--card-shadow);padding:1rem 0;margin-bottom:2rem}
+        .nav-links{display:flex;gap:2rem;align-items:center}
+        .nav-links a{text-decoration:none;color:#374151;font-weight:500}
+        .nav-links a:hover{color:var(--primary-color)}
+        .logo{font-size:1.5rem;font-weight:bold;color:#6366f1}
+        .ctf-success{background:linear-gradient(135deg,var(--success-color),#059669);color:#fff;text-align:center;padding:3rem;border-radius:12px}
+        .code-block{background:#f8f9fa;border:1px solid #e9ecef;border-radius:6px;padding:1rem;font-family:'Courier New',monospace;font-size:.9rem;white-space:pre-wrap;overflow-x:auto}
+        .method-steps{background:#f0f9ff;border-left:4px solid var(--primary-color);padding:1rem;margin:1rem 0}
+        .form-group{margin-bottom:1rem}
+        .btn-primary{background-color:var(--primary-color);border-color:var(--primary-color)}
+        .btn-danger{background-color:var(--danger-color);border-color:var(--danger-color)}
+        .btn-success{background-color:var(--success-color);border-color:var(--success-color)}
+        .account-info{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:1rem;margin:1rem 0}
+    </style>
+</head>
+<body>

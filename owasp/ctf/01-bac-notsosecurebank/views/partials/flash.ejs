@@ -1,0 +1,5 @@
+<% if (flash) { %>
+  <article class="card" style="border-left:6px solid <%= flash.type === 'success' ? '#10b981' : '#ef4444' %>;">
+    <p><strong><%= flash.type.toUpperCase() %>:</strong> <%- flash.message %></p>
+  </article>
+<% } %>

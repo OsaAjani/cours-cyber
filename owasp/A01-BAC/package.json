@@ -1,0 +1,29 @@
+{
+  "name": "a01-bac-demo",
+  "version": "1.0.0",
+  "description": "Application de démonstration pour la vulnérabilité BAC (Broken Access Control)",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [
+    "security",
+    "demo",
+    "BAC",
+    "access-control"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.9",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

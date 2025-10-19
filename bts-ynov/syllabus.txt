@@ -1,0 +1,46 @@
+U7 Cybersécurité des services informatiques
+Objectifs du module U7
+Le module U7 a pour objectifs de
+·        Sensibiliser les étudiants aux risques liés à la sécurité informatique.
+·        Leur permettre de mettre en œuvre des mesures de protection, de détection et de réaction face aux menaces.
+·        Les préparer à intégrer les bonnes pratiques de sécurité dans toutes les activités informatiques : développement, administration réseau, gestion de parc, etc.
+·        Comprendre la législation et les normes de sécurité (RGPD, ISO 27001, etc.).
+·        Se préparer à certains référentiels de sécurité comme ceux de l'ANSSI.
+Le programme du module U7
+1. Fondamentaux de la cybersécurité
+·        Définitions : menace, vulnérabilité, attaque, risque
+·        Types d’attaques : phishing, malware, ransomware, DDoS, etc.
+·        Objectifs de la cybersécurité : confidentialité, intégrité, disponibilité (triade CIA)
+·        Acteurs de la menace (hackers, insiders, États, etc.)
+2. Politique de sécurité informatique (PSSI)
+·        Mise en place d'une politique de sécurité
+·        Rôles et responsabilités (RSSI, administrateurs, utilisateurs)
+·        Gestion des accès et des privilèges (principe du moindre privilège)
+3. Sécurité des systèmes et réseaux (surtout SISR)
+·        Sécurisation des postes de travail et des serveurs
+·        Pare-feu, antivirus, proxy, IDS/IPS
+·        VPN et tunnels chiffrés
+·        Segmentation réseau, VLAN
+·        Supervision et journalisation (logs)
+4. Cybersécurité et développement (surtout SLAM)
+·        Failles applicatives (OWASP Top 10)
+·        Injection SQL, XSS, CSRF, etc.
+·        Authentification sécurisée
+·        Sécurité des API et des communications
+·        Chiffrement et hachage (bcrypt, TLS, etc.)
+5. Gestion des incidents et des vulnérabilités
+·        Démarche de réponse à incident
+·        Analyse de logs et détection d’intrusion
+·        Correctifs de sécurité (patch management)
+·        Sauvegardes, restauration, PCA/PRA
+
+6. Cadre légal et conformité
+·        RGPD : protection des données personnelles
+·        CNIL et obligations de déclaration
+·        Responsabilités légales des administrateurs et développeurs
+·        Notions d’audit et de conformité
+
+Évaluation finale écrite de 4 h coef 4
+Modalités : L'épreuve revêt la forme d’une étude de cas de production de services informatiques sécurisés, construite à partir d’une situation réelle, mobilisant les ressources décrites pour le bloc « Cybersécurité des services informatiques ». 
+Elle est composée de plusieurs dossiers couvrant différentes missions dans le domaine des solutions d’infrastructure, systèmes et réseaux. Elle comporte un dossier documentaire permettant de situer le contexte de l’organisation, les solutions applicatives et d’infrastructure mises en œuvre, les moyens techniques, humains, financiers disponibles, le cadre juridique, l’expression des besoins ayant motivé les services demandés.
+

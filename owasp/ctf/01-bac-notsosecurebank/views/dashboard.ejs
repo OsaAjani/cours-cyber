@@ -1,0 +1,63 @@
+
+<%- include('partials/head', { title: 'Dashboard - SecureBank' }) %>
+
+<%- include('partials/navbar') %>
+
+<main class="container">
+    <%- include('partials/flash') %>
+    
+    <div class="dashboard-header">
+        <h1>Welcome to your SecureBank Dashboard <strong><%= me.name %></strong></h1>
+        <p>Secure financial management for the digital age</p>
+    </div>
+    
+    <%- include('partials/balance-card', { user: me }) %>
+    
+    <article class="card">
+        <h3>Account Actions</h3>
+        <p>Use the form below to view your account information and transactions:</p>
+        <form method="post" action="/account-info">
+            <div class="form-group">
+                <label for="action">Select Action:</label>
+                <select id="action" name="action" required>
+                    <option value="view_rib">View RIB</option>
+                    <option value="view_transactions">View Transaction History</option>
+                </select>
+            </div>
+            
+            <input type="hidden" id="user_id" name="user_id" value="<%= me.id %>" readonly />
+            <button type="submit" class="btn-primary">Execute Action</button>
+        </form>
+    </article>
+
+    <% if (rib || resultTx.length > 0) { %>
+        <article id="account-result" class="card">
+            <h3>Account Information</h3>
+            <% if (rib) { %>
+                <div class="account-info">
+                    <h4>🏦 <%= rib.name %>'s RIB (Relevé d'Identité Bancaire)</h4>
+                    <p><strong>Account Holder:</strong> <%= rib.name %></p>
+                    <p><strong>IBAN:</strong> <%= rib.iban %></p>
+                    <p><strong>BIC:</strong> <%= rib.bic %></p>
+                    <p><strong>Bank Name:</strong> <%= rib.bankname %></p>
+                </div>
+            <% } else if (resultTx) { %>
+                <h4>💳 Transaction History:</h4>
+                <% resultTx.forEach((transaction) =>{ %>
+                    <div class="transaction-item">
+                        <div>
+                            <strong><%= transaction.description %></strong><br />
+                            <small><%= transaction.date %></small>
+                        </div>
+                        <div class="<%= transaction.amount >= 0.01 ? 'amount-positive' : 'amount-negative' %>">
+                            <%= transaction.amount >= 0.01 ? '+' : '' %>$<%= Math.abs(transaction.amount).toFixed(2) %>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } %>
+        </article>
+    <% } %>
+                                            
+</main>
+                
+<%- include('partials/footer') %>
