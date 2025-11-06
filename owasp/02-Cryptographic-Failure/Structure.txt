@@ -1,0 +1,276 @@
+1 - Intro slide
+
+Title: A02:2021 – Cryptographic Failures
+
+Subtitle: When encryption goes wrong — understanding and preventing data exposure
+
+Image suggestion: Lock icon over a broken chain / shredded certificate
+
+Instructor note: This vulnerability often causes sensitive data leaks and privilege escalations. Explain scope: at-rest, in-transit, keys & crypto primitives.
+
+2 - Presentation of the vulnerability
+
+Name: Cryptographic Failures (formerly “Sensitive Data Exposure”)
+
+OWASP Ranking: A02:2021
+
+Short description: Failures to properly protect sensitive data because of weak or misused cryptography, poor key management, or missing transport encryption — leading to exposure, tampering or impersonation.
+
+CIA Impact Table:
+
+Security Property	Impact	Level
+Confidentiality	Sensitive data can be read by attackers	🔴 High
+Integrity	Data may be modified or forged	🟠 Medium
+Availability	Usually not directly impacted	🟢 Low
+
+3 - More detailed presentation of the vulnerability
+3.1 - More detailed presentation
+
+Family: Data protection, authentication & authorization failures.
+
+Attack source: External attackers (MITM, network sniffing), internal actors (leaked keys), or supply-chain (vulnerable libs).
+
+Parts targeted: Backend (storage, DB), API servers (JWT/ tokens), communication layers (TLS), config files, CI/CD secrets.
+
+Typical sensitive assets: Credentials, PII, financial info, session tokens, API keys, private keys.
+
+3.x - Example scenarios (multiple)
+
+3.2 - Example 1 — Cleartext in transit
+
+Web app sends login and session tokens over HTTP instead of HTTPS.
+
+Impact: MITM attacker steals credentials and session cookies.
+
+3.3 - Example 2 — Weak hashing for passwords
+
+App stores passwords with MD5 or unsalted SHA-1.
+
+Impact: Fast offline cracking and account takeover.
+
+3.4 - Example 3 — Poor at-rest encryption (wrong mode)
+
+Data encrypted using AES-ECB revealing patterns (e.g., images, repeated fields).
+
+Impact: Leakage of structure; infer data patterns.
+
+3.5 - Example 4 — Hard-coded keys & credentials
+
+Private keys or API secrets committed to Git repository or included in code/config.
+
+Impact: Secrets leak via source code, forks, or backups.
+
+3.6 - Example 5 — Insecure TLS configuration
+
+Use of TLS < 1.2, weak ciphers, missing HSTS, or self-signed certs in production.
+
+Impact: Downgrade/MITM attacks and interception.
+
+3.7 - Example 6 — JWT accepting alg: "none" (insecure verification)
+
+A web API uses JWTs and accepts tokens with header "alg": "none" without verifying signature.
+
+Impact: Attacker forges tokens that assert any identity/role and gains unauthorized access.
+
+4 - Discovering the vulnerability
+4.1 - Where to look
+
+Network layer: HTTP endpoints, WebSocket traffic, API gateways.
+
+Backend storage: DB backups, cloud storage, logs.
+
+Source code & configs: secrets in code, deployment pipelines, environment variables.
+
+Token handling: JWT verification code, token libraries, middleware.
+
+4.2 - Warning signs
+
+Plaintext credentials in network captures.
+
+Use of deprecated/weak algorithms in code (MD5, SHA-1, DES, RC4, ECB).
+
+Missing TLS or insecure TLS settings seen in testssl.sh/browser warnings.
+
+Presence of private keys, secrets or credentials in repos (Gitleaks alerts).
+
+JWT verification that doesn't specify alg or allowed algorithms.
+
+4.3 - How to verify presence
+
+Intercept traffic with proxy (Burp/ZAP) or Wireshark to see plaintext transport.
+
+Review code for crypto usage: custom crypto, manual implementations, wrong modes.
+
+Attempt to modify a JWT to alg:none and resend to see if accepted.
+
+Inspect backup files, config files, Docker images for secrets.
+
+Fuzz token validation (change header alg, tamper payload, empty signature).
+
+4.4 - Tools
+
+Burp Suite / OWASP ZAP — intercept & modify HTTP(S) requests (JWT tests).
+
+Wireshark — capture network traffic.
+
+testssl.sh / sslscan — TLS configuration checks.
+
+Hashcat / John the Ripper — test weak hashes.
+
+Gitleaks / TruffleHog — detect secrets in repos.
+
+jwt-tool / jwt.io / custom scripts — manipulate and test JWTs.
+
+Static Analysis/SAST — detect insecure crypto use.
+
+5 - How to exploit the vulnerability
+5.X - Conceptual principles behind exploitation
+
+Observe: capture data in transit or find leaked keys.
+
+Tamper: modify tokens or ciphertext to bypass checks if verification is weak.
+
+Crack: brute-force or use rainbow tables on weak hashes.
+
+Impersonate: forge tokens (e.g., JWT alg:none) or use stolen keys to sign malicious tokens.
+
+5.X - Practical case with demo (lab-friendly)
+
+Demo 1 — Cleartext credentials
+
+Intercept login via HTTP, replay credentials and access account.
+
+Demo 2 — Weak password hashing
+
+Extract DB dump, run Hashcat against MD5 hashes, log in as user.
+
+Demo 3 — AES-ECB pattern leakage
+
+Show how identical plaintext blocks produce identical ciphertext blocks (image example).
+
+Demo 4 — JWT alg:none exploit (lab)
+
+Steps:
+
+Capture or inspect a legitimate JWT (optional).
+
+Create header {"typ":"JWT","alg":"none"} and payload {"sub":"victim","role":"admin","exp":...}.
+
+Base64url-encode header and payload; join with a trailing dot: <h>.<p>..
+
+Send Authorization: Bearer <h>.<p>. to a protected endpoint /admin.
+
+If accepted, demonstrate privilege escalation (view admin page, perform admin action).
+
+Demo notes: Use an isolated dev environment. Ensure students understand responsible disclosure and lab boundaries.
+
+6 - Why the vulnerability appears
+6.X - Root causes
+
+Lack of crypto knowledge: developers misuse algorithms or reimplement crypto.
+
+Insecure defaults: libraries or frameworks using weak defaults or permissive verification.
+
+Operational mistakes: hardcoded keys, improper key rotation, credentials in CI/CD.
+
+Performance shortcuts: disabling verification for perceived speed gains.
+
+Incomplete threat modeling: not protecting tokens, backups or logs.
+
+6.X - Features / contexts to be vigilant about
+
+Fast-moving or small teams shipping auth quickly.
+
+Legacy systems with old algorithms.
+
+Systems that integrate many third-party services (token sharing).
+
+Use of homegrown crypto or custom token formats.
+
+7 - How to fix the vulnerability
+7.X - General defensive concepts
+
+Use well-reviewed libraries; don’t roll your own crypto.
+
+Enforce encryption in transit (TLS 1.2+) and at rest (AEAD modes).
+
+Proper key management (KMS, Vault, JWKS) and key rotation.
+
+Principle of least privilege for keys and tokens.
+
+Secure defaults and CI/CD scanning for secrets.
+
+7.X - Concrete fixes for common cases
+Password storage
+
+Bad: md5($password)
+
+Good (PHP example):
+
+    $hash = password_hash($password, PASSWORD_ARGON2ID);
+
+    Use Argon2id or bcrypt with appropriate parameters.
+
+TLS enforcement
+
+    Configure servers to use TLS 1.2+ and strong ciphers.
+
+    Add HSTS header:
+
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+
+JWT handling (fixing alg:none & general)
+
+Reject alg:none tokens explicitly.
+
+Always specify allowed algorithms when verifying tokens.
+
+8 - Practice and experimentation, CTF & Fix
+8.1 - Presentation of the CTF challenge(s)
+CTF A — “Ecology: to protect the environment”
+
+Lore: You're an IT investigator in charge of investigating a stolen credit card numbers seller known online under the pseudonyme QuartDheure. QuartDheure started his carrer a few years ago, selling credit cards on a darknet website massively used at the time to buy and sell many illegal products. The website is mostly considered dead nowadays, but it may still contain usefull informations about your target, particularily the password and email he used back in the day.
+
+Your mission :
+- Find a way to connect as an admin
+- Use the admin secret code (on the admin page) as the CTF key for first chall
+- Use the admin account to recover email/password QuartDheure used back in the days
+- Use the password as the CTF key for the second chall
+
+URL/lab: http://crypto.owasp.ajani.ovh
+
+Deliverable: No deliverable behind the CTF
+
+8.2 - Demonstration of exploitation
+
+Demo of how to resolve the chall
+Live demo suggestions:
+
+Demo: Intercept HTTP login -> show credentials in cleartext -> fix by enabling HTTPS.
+
+Demo: DB dump with MD5 hashes -> crack with Hashcat -> fix by migrating to Argon2id.
+
+Demo: JWT alg:none PoC (in an isolated lab):
+
+Build token and show access to admin endpoint.
+
+Show code fix: enforce algorithms + validate claims.
+
+Short writeups: each demo should end with a step-by-step remediation checklist and PR template to propose fix.
+
+
+9 - Multiple-choice quiz on the concepts covered
+Knowledge Check: Quiz
+Test your understanding of Broken Access Control concepts with these questions. Consider each carefully4they cover key principles
+discussed throughout this presentation.
+https://qcm.ajani.ovh/owasp-bac
+PS : Use ChatGPT and see how quick I will show you the door
+
+
+10 - Key Takeaways
+
+What the vulnerability consists of: Failure to correctly protect sensitive data due to weak crypto, poor key management or missing transport encryption.
+
+When it's likely to appear: Legacy code, rushed implementations, homegrown crypto, or when secrets leak into repos or configs.
+
+Best protections: Use vetted libraries, enforce TLS, manage keys with dedicated tooling (KMS/Vault), restrict algorithms, validate token claims, and scan for secrets.

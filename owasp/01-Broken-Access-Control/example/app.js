@@ -101,7 +101,7 @@ app.get("/logout", (req, res) => {
 
 app.get("/user/profile/:id", requireLogin, async (req, res) => {
     try {
-        const targetId = req.params.id;
+        const targetId = req.session.userId; // Sécurité toujours utiliser l'id de session
         const targetUser = await findUserById(targetId);
         
         if (!targetUser) return res.status(404).send("Profil introuvable");
@@ -118,6 +118,6 @@ app.get("/user/profile/:id", requireLogin, async (req, res) => {
 });
 
 // --- Démarrage ---
-const PORT = 3000;
+const PORT = 3001;
 app.listen(PORT, () => console.log(`Demo app démarrée sur http://localhost:${PORT}`));
 

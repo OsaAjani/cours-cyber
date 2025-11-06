@@ -58,6 +58,11 @@ app.get('/', (req, res) => {
 
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
+
+    if (!password || !username) { 
+        return res.redirect('/');
+    }
+
     const user = await db.get(`SELECT * FROM users WHERE username = ?`, username);
     if (!user || !bcrypt.compareSync(password, user.password)) {
         req.session.flash = { type: 'danger', message: 'Invalid credentials!' };
