@@ -233,9 +233,9 @@ Lore: You're an IT investigator in charge of investigating a stolen credit card 
 
 Your mission :
 - Find a way to connect as an admin
-- Use the admin secret code (on the admin page) as the CTF key for first chall
+- Use the admin secret bitcoin account number (on the admin page) as the CTF key for first chall
 - Use the admin account to recover email/password QuartDheure used back in the days
-- Use the password as the CTF key for the second chall
+- Find the postal address of QuartDheure and use his real name as CTF key
 
 URL/lab: http://crypto.owasp.ajani.ovh
 
