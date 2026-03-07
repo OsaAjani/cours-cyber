@@ -1,0 +1,43 @@
+<%- include('partials/header') %>
+<div class="card">
+    <h2>Shipment Tracking</h2>
+    <form action="/track" method="POST">
+        <label for="tracking_number">Tracking Number</label>
+        <div class="grid">
+            <input type="text" id="tracking_number" name="tracking_number" placeholder="PP-XXXXX" required>
+            <button type="submit">Search</button>
+        </div>
+    </form>
+
+    <% if (error) { %>
+        <p style="color: red;"><strong>Error:</strong> <%= error %></p>
+    <% } %>
+
+    <% if (results && results.length > 0) { %>
+        <figure>
+            <table role="grid">
+                <thead>
+                    <tr>
+                        <th scope="col">Tracking Number</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Destination</th>
+                        <th scope="col">Last Update</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% results.forEach(function(row) { %>
+                        <tr>
+                            <td><%= row.tracking_number %></td>
+                            <td><%= row.status %></td>
+                            <td><%= row.destination %></td>
+                            <td><%= row.updated_at %></td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </figure>
+    <% } else if (results && results.length === 0) { %>
+        <p>No shipments found with that tracking number.</p>
+    <% } %>
+</div>
+<%- include('partials/footer') %>

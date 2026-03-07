@@ -1,0 +1,26 @@
+<%- include('partials/header') %>
+<div class="card">
+    <nav aria-label="breadcrumb">
+      <ul>
+        <li><a href="/support/dashboard">Dashboard</a></li>
+        <li>Monitoring</li>
+      </ul>
+    </nav>
+    <hr>
+    <h2>Infrastructure Diagnostic Tool</h2>
+    <p>Use this tool to verify connectivity to our warehouse network nodes.</p>
+
+    <form action="/support/monitoring" method="POST">
+        <label for="hostname">Target Hostname / IP</label>
+        <div class="grid">
+            <input type="text" id="hostname" name="hostname" value="127.0.0.1" required>
+            <button type="submit" class="secondary">Run Ping</button>
+        </div>
+    </form>
+
+    <% if (output) { %>
+        <h4>Diagnostic Output:</h4>
+        <pre><code style="background: #2d2d2d; color: #ccc; display: block; padding: 1rem; border-radius: 4px;"><%= output %></code></pre>
+    <% } %>
+</div>
+<%- include('partials/footer') %>
