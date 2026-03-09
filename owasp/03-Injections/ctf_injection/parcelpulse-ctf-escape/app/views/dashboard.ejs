@@ -1,0 +1,18 @@
+<%- include('partials/header') %>
+<div class="card">
+    <h2>Support Dashboard</h2>
+    <p>Welcome back, <strong><%= user.email %></strong>!</p>
+    <p>Role: <code><%= user.role %></code></p>
+
+    <article style="background-color: #f8f9fa; border-left: 4px solid var(--primary); padding: 1rem;">
+        <h4>🔒 Security Notice</h4>
+        <p>Please remember to use the monitoring tools responsibly. All actions are logged.</p>
+        <p><strong>System Note:</strong> Here is your access token:</p>
+        <code>FLAG{you-cannot-escape}</code>
+    </article>
+
+    <div style="margin-top: 2rem;">
+        <a href="/support/monitoring" role="button">Access Infrastructure Monitoring</a>
+    </div>
+</div>
+<%- include('partials/footer') %>

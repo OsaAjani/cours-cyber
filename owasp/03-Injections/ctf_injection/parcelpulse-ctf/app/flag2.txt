@@ -1,0 +1,1 @@
+FLAG{sh3ll_inj3cti0n_m4st3r}
