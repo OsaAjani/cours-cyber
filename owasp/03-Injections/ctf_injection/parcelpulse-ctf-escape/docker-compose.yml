@@ -6,8 +6,8 @@ services:
         container_name: parcelpulse-ctf-escape
         working_dir: /app
         volumes:
-            - ./:/app
-        command: sh -c "npm install && node server.js"
+            - ./app:/app
+        command: sh -c "apt-get update && apt-get install -y iputils-ping && npm install && node server.js"        
         ports:
             - "3001:3001"
         environment:
