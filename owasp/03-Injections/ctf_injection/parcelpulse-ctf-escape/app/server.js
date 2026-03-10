@@ -12,7 +12,7 @@ const app = express();
 const PORT = 3001;
 
 // Setup Flag 2
-fs.writeFileSync('flag2.txt', 'FLAG{sh3ll_inj3cti0n_m4st3r}');
+fs.writeFileSync('flag2.txt', 'FLAG{sh3ll_inj3cti0n_m4st3r_filtering_is_futile}');
 
 // Middleware
 app.set('view engine', 'ejs');

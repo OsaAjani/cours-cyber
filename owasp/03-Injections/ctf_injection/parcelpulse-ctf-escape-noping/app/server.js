@@ -11,8 +11,8 @@ const e = require('express');
 const app = express();
 const PORT = 3001;
 
-// Setup Flag 2
-fs.writeFileSync('flag2.txt', 'FLAG{sh3ll_inj3cti0n_m4st3r}');
+// Setup Flag 
+fs.writeFileSync('flag_random_72927E72.txt', 'FLAG{R3directMyFlux}');
 
 // Middleware
 app.set('view engine', 'ejs');
