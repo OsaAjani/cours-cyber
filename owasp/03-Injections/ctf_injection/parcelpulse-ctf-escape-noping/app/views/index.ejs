@@ -1,0 +1,16 @@
+<%- include('partials/header') %>
+<div class="card">
+    <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1200&auto=format&fit=crop" alt="Warehouse" class="hero-img">
+    <hgroup>
+        <h1>Welcome to ParcelPulse</h1>
+        <h2>Reliable, Fast, and Secure Global Logistics.</h2>
+    </hgroup>
+    <p>Track your shipment instantly using our state-of-the-art tracking infrastructure.</p>
+    <form action="/track" method="POST">
+        <div class="grid">
+            <input type="text" name="tracking_number" placeholder="Enter Tracking Number (e.g., PP-10029)" required>
+            <button type="submit">Track Package</button>
+        </div>
+    </form>
+</div>
+<%- include('partials/footer') %>

@@ -1,1 +1,1 @@
-FLAG{sh3ll_inj3cti0n_m4st3r}
+FLAG{sh3ll_inj3cti0n_m4st3r_filtering_is_futile}
