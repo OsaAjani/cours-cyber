@@ -29,7 +29,7 @@ const db = new sqlite3.Database(':memory:');
 
 db.serialize(() => {
     // Create Users Table
-    db.run(`CREATE TABLE support (
+    db.run(`CREATE TABLE support80923 (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         mail TEXT,
         mdp TEXT
@@ -47,9 +47,9 @@ db.serialize(() => {
     // Insert Dummy Data
     pwd = md5('mustang123');
     pwd2 = md5('porsche69');
-    db.run(`INSERT INTO support (mail, mdp) VALUES ('admin@parcelpulse.com', '${pwd}')`);
+    db.run(`INSERT INTO support80923 (mail, mdp) VALUES ('admin@parcelpulse.com', '${pwd}')`);
     pwd = md5('P@ssw0rd123');
-    db.run(`INSERT INTO support (mail, mdp) VALUES ('support@parcelpulse.com', '${pwd2}')`);
+    db.run(`INSERT INTO support80923 (mail, mdp) VALUES ('support@parcelpulse.com', '${pwd2}')`);
 
     db.run(`INSERT INTO shipments (tracking_number, status, destination, updated_at) VALUES ('PP-10029', 'In Transit', 'Berlin Warehouse', '2023-10-25 14:00')`);
     db.run(`INSERT INTO shipments (tracking_number, status, destination, updated_at) VALUES ('PP-88372', 'Delivered', 'Paris HQ', '2023-10-24 09:30')`);
@@ -93,7 +93,7 @@ app.get('/support/login', (req, res) => {
 
 app.post('/support/login', (req, res) => {
     const { email, password } = req.body;
-    db.get(`SELECT * FROM support WHERE mail = ? AND mdp = ?`, [email, password], (err, row) => {
+    db.get(`SELECT * FROM support80923 WHERE mail = ? AND mdp = ?`, [email, md5(password)], (err, row) => {
         if (row) {
             req.session.user = row;
             res.redirect('/support/dashboard');
